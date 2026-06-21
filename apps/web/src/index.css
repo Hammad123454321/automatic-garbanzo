@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { @apply border-gray-200; }
+  body { @apply bg-gray-50 text-gray-900 font-sans antialiased; }
+}
+
+@layer components {
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed; }
+  .btn-primary { @apply btn bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500; }
+  .btn-secondary { @apply btn bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 focus:ring-gray-400; }
+  .btn-danger { @apply btn bg-danger-600 text-white hover:bg-danger-700 focus:ring-danger-500; }
+  .btn-success { @apply btn bg-success-600 text-white hover:bg-success-700 focus:ring-success-500; }
+  .btn-lg { @apply px-6 py-3 text-base; }
+  .btn-sm { @apply px-3 py-1.5 text-xs; }
+  .btn-xl { @apply px-8 py-4 text-lg rounded-xl; }
+
+  .input { @apply block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm placeholder-gray-400 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500; }
+  .label { @apply block text-sm font-medium text-gray-700 mb-1; }
+  .select { @apply input; }
+  .textarea { @apply input min-h-[80px] resize-y; }
+
+  .card { @apply bg-white rounded-xl border border-gray-200 shadow-sm; }
+  .card-header { @apply px-6 py-4 border-b border-gray-200 flex items-center justify-between; }
+  .card-body { @apply p-6; }
+
+  .badge { @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium; }
+  .badge-green { @apply badge bg-success-50 text-success-700; }
+  .badge-yellow { @apply badge bg-warning-50 text-warning-600; }
+  .badge-red { @apply badge bg-danger-50 text-danger-700; }
+  .badge-blue { @apply badge bg-primary-50 text-primary-700; }
+  .badge-gray { @apply badge bg-gray-100 text-gray-600; }
+
+  .table { @apply w-full text-sm text-left; }
+  .table th { @apply px-4 py-3 bg-gray-50 font-medium text-gray-500 uppercase tracking-wider text-xs border-b; }
+  .table td { @apply px-4 py-3 border-b border-gray-100; }
+  .table tr:hover td { @apply bg-gray-50; }
+
+  .pos-key { @apply flex flex-col items-center justify-center rounded-xl bg-white border-2 border-gray-200 font-medium cursor-pointer transition-all active:scale-95 select-none; }
+  .pos-key:hover { @apply border-primary-400 bg-primary-50; }
+  .pos-key.active { @apply border-primary-500 bg-primary-100 text-primary-700; }
+}
+
+@layer utilities {
+  .scrollbar-thin { scrollbar-width: thin; scrollbar-color: theme('colors.gray.300') transparent; }
+}
