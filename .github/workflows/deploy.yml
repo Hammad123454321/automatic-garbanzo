@@ -1,0 +1,37 @@
+name: Deploy to VPS
+
+# Deploys frontend + backend + db + cache to the production VPS whenever
+# main is updated. The VPS does the actual `docker compose build` so the
+# CI runner stays lightweight. Workflow can also be triggered manually
+# from the Actions tab via the "Run workflow" button.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+# Cancel any in-flight deploy when a newer commit lands on main.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Build & restart on VPS
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: SSH → run deploy.sh on the VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          password: ${{ secrets.VPS_PASSWORD }}
+          port: ${{ secrets.VPS_PORT || 22 }}
+          # Generous timeouts: the VPS can be momentarily busy finishing a prior
+          # docker build, and the build itself can run for several minutes.
+          timeout: 120s
+          command_timeout: 30m
+          script: |
+            set -euo pipefail
+            cd "${{ secrets.VPS_PROJECT_PATH }}"
+            bash deploy/deploy.sh
